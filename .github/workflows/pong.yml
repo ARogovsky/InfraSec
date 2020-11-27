@@ -16,7 +16,7 @@ jobs:
         run: echo "::set-output name=ID::${{ github.event.client_payload.pull_request.head.ref }}"
       - name: Append to hello-world.txt
         run: |
-          copy README.main README.md
+          cp README.main README.md
           echo "Changed by @${{ github.event.client_payload.github.actor }}! at ${{ steps.BRANCH.outputs.ID }}" >> hello-world.txt
       - name: Commit to the PR branch
         run: |

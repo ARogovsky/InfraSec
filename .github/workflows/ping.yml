@@ -8,10 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Chat
-        uses: ./
+        uses: peter-evans/slash-command-dispatch@v2
         with:
           token: ${{ secrets.PAT }}
           reaction-token: ${{ secrets.GITHUB_TOKEN }}
           commands: ping
           permission: none
           issue-type: issue
+          commands: |
+            ping
