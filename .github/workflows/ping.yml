@@ -1,4 +1,4 @@
-name: "Echo bot"
+name: "Echo bot v2"
 on:
   issue_comment:
     types: [created]
@@ -6,9 +6,12 @@ jobs:
  ping:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
       - name: Chat
-        uses: peter-evans/slash-command-dispatch@v2
+        uses: ./
         with:
           token: ${{ secrets.PAT }}
-          commands: |
-            ping
+          reaction-token: ${{ secrets.GITHUB_TOKEN }}
+          commands: ping
+          permission: none
+          issue-type: issue
