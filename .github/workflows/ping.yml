@@ -12,7 +12,6 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           reaction-token: ${{ secrets.GITHUB_TOKEN }}
-          commands: ping
           permission: none
           issue-type: issue
           commands: |
