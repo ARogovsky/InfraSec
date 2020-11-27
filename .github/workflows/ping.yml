@@ -13,6 +13,6 @@ jobs:
           token: ${{ secrets.PAT }}
           reaction-token: ${{ secrets.GITHUB_TOKEN }}
           permission: none
-          issue-type: issue
+          issue-type: pull-request
           commands: |
             ping
