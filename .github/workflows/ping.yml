@@ -1,0 +1,14 @@
+name: "Echo bot"
+on:
+  issue_comment:
+    types: [created]
+jobs:
+ ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Chat
+        uses: peter-evans/slash-command-dispatch@v2
+        with:
+          token: ${{ secrets.PAT }}
+          commands: |
+            ping

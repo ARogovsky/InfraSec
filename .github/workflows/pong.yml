@@ -1,0 +1,19 @@
+name: "Echo reply"
+on:
+  repository_dispatch:
+    types: [ping-command]
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get namespace
+        id: BRANCH
+        run: echo "::set-output name=ID::${{ github.event.client_payload.pull_request.head.ref }}"
+      - name: Update comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.PAT }}
+          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
+          body: Pong from ${{ steps.BRANCH.outputs.ID }}
+          reaction-type: hooray
