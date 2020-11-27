@@ -31,5 +31,5 @@ jobs:
           token: ${{ secrets.PAT }}
           repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
           comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
-          body: Test Pong from ${{ steps.BRANCH.outputs.ID }}
+          body: Test 2 Pong from ${{ steps.BRANCH.outputs.ID }}
           reaction-type: hooray
