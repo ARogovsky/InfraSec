@@ -3,12 +3,28 @@ on:
   repository_dispatch:
     types: [ping-command]
 jobs:
-  destroy:
+  pong:
     runs-on: ubuntu-latest
     steps:
-      - name: Get namespace
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
+          repository: ${{ github.event.client_payload.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.client_payload.pull_request.head.ref }}
+      - name: Get PR ID
         id: BRANCH
         run: echo "::set-output name=ID::${{ github.event.client_payload.pull_request.head.ref }}"
+      - name: Append to hello-world.txt
+        run: |
+          copy README.main README.md
+          echo "Changed by @${{ github.event.client_payload.github.actor }}! at ${{ steps.BRANCH.outputs.ID }}" >> hello-world.txt
+      - name: Commit to the PR branch
+        run: |
+          git config --global user.name 'Andrey Rogovsky'
+          git config --global user.email 'a.rogovsky@gmail.com'
+          git add -A
+          git commit -m "[echo] Add echo response"
+          git push
       - name: Update comment
         uses: peter-evans/create-or-update-comment@v1
         with:
