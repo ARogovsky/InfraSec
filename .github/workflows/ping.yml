@@ -6,13 +6,14 @@ jobs:
  ping:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        token: ${{ secrets.PAT }}
+        ref: ${{ github.event.client_payload.pull_request.head.ref }}
       - name: Chat
         uses: peter-evans/slash-command-dispatch@v2
         with:
           token: ${{ secrets.PAT }}
           reaction-token: ${{ secrets.GITHUB_TOKEN }}
           permission: none
-          issue-type: pull-request
           commands: |
             ping
